@@ -33,4 +33,5 @@ class MahasiswaController extends Controller
             'path' => $request->path(), 
         ]); 
     } 
+    
 } // <--- Ini adalah kurung penutup class yang benar
