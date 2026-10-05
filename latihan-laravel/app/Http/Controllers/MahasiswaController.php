@@ -1,37 +1,42 @@
-<?php 
- 
-namespace App\Http\Controllers; 
- 
-use Illuminate\Http\Request; 
- 
-class MahasiswaController extends Controller 
-{ 
-    public function index() 
-    { 
-        $daftarMahasiswa = [ 
-            ['nim' => 'H1A123001', 'nama' => 'Andi Prasetyo', 'angkatan' => 2023], 
-            ['nim' => 'H1A123002', 'nama' => 'Bunga Lestari', 'angkatan' => 2023], 
-            ['nim' => 'H1A123003', 'nama' => 'Citra Ramadhani', 'angkatan' => 2024], 
-        ]; 
- 
-        return view('mahasiswa.index', ['daftarMahasiswa' => $daftarMahasiswa]); 
-    } 
- 
-    public function show(string $nim) 
-    { 
-        return view('mahasiswa.show', ['nim' => $nim]); 
-    } 
+<?php
 
-    // Posisikan method cari di sini, SEBELUM kurung penutup class
-    public function cari(Request $request) 
-    { 
-        $kataKunci = $request->query('q', ''); 
- 
-        return response()->json([ 
-            'kata_kunci' => $kataKunci, 
-            'metode' => $request->method(), 
-            'path' => $request->path(), 
-        ]); 
-    } 
-    
-} // <--- Ini adalah kurung penutup class yang benar
+namespace App\Http\Controllers;
+
+use App\Models\Mahasiswa;
+use Illuminate\Http\Request;
+
+class MahasiswaController extends Controller
+{
+    // Dipanggil dari: GET /data-mahasiswa (name: mahasiswa.index)
+    public function index()
+    {
+        $mahasiswas = Mahasiswa::with('programStudi')->get();
+
+        return response()->json($mahasiswas);
+    }
+
+    // Dipanggil dari: GET /data-mahasiswa/{nim} (name: mahasiswa.show)
+    public function show(string $nim)
+    {
+        $mahasiswa = Mahasiswa::with('programStudi')->where('nim', $nim)->first();
+
+        if (!$mahasiswa) {
+            return response()->json(['pesan' => 'Mahasiswa tidak ditemukan'], 404);
+        }
+
+        return response()->json($mahasiswa);
+    }
+
+    // Dipanggil dari: GET /cari-mahasiswa?kata=...
+    public function cari(Request $request)
+    {
+        $kataKunci = $request->query('kata', '');
+
+        $mahasiswas = Mahasiswa::with('programStudi')
+            ->where('nama', 'like', '%' . $kataKunci . '%')
+            ->orWhere('nim', 'like', '%' . $kataKunci . '%')
+            ->get();
+
+        return response()->json($mahasiswas);
+    }
+}
