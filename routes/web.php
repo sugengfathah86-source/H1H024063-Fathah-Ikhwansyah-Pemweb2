@@ -35,4 +35,8 @@ Route::get('/cari-mahasiswa', [MahasiswaController::class, 'cari']);
 Route::get('/matakuliah', [MatakuliahController::class, 'index'])->name('matakuliah.index');
 Route::get('/matakuliah/{kode}', [MatakuliahController::class, 'show'])->name('matakuliah.show');
 
+<<<<<<< HEAD:latihan-laravel/routes/web.php
 Route::get('/mahasiswa/{id}', [MahasiswaWebController::class, 'show']);
+=======
+Route::get('/mahasiswa/{id}', [MahasiswaWebController::class, 'show']);
+>>>>>>> 979fc5886b232922b94e415580d4b54d710db82e:routes/web.php

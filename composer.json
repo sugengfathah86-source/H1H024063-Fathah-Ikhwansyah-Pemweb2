@@ -8,7 +8,11 @@
     "require": {
         "php": "^8.3",
         "laravel/framework": "^13.0",
+<<<<<<< HEAD:latihan-laravel/composer.json
         "laravel/sanctum": "^4.3",
+=======
+        "laravel/sanctum": "^4.0",
+>>>>>>> 979fc5886b232922b94e415580d4b54d710db82e:composer.json
         "laravel/tinker": "^3.0"
     },
     "require-dev": {

@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD:latihan-laravel/composer.lock
     "content-hash": "b3cf5eb003b410a68eec41af8117968f",
+=======
+    "content-hash": "8b42e729574e6d48b742c259c8cdd452",
+>>>>>>> 979fc5886b232922b94e415580d4b54d710db82e:composer.lock
     "packages": [
         {
             "name": "brick/math",
